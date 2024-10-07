@@ -18,9 +18,21 @@ class MoedasPage extends StatelessWidget {
         body: ListView.separated(
             itemBuilder: (BuildContext context, int moeda) {
               return ListTile(
-                leading: Image.asset(tabela[moeda].icone),
-                title: Text(tabela[moeda].nome),
-                trailing: Text(tabela[moeda].preco.toStringAsFixed(2)),
+                leading: SizedBox(
+                  child: Image.asset(tabela[moeda].icone),
+                  width: 35,
+                ),
+                title: Text(
+                  tabela[moeda].nome,
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black54),
+                ),
+                trailing: Text(
+                  tabela[moeda].preco.toStringAsFixed(2),
+                  style: const TextStyle(fontSize: 14),
+                ),
               );
             },
             padding: const EdgeInsets.all(16),

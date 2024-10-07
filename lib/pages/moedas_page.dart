@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:teste_flutter/repositories/moeda_repository.dart';
 
 class MoedasPage extends StatelessWidget {
@@ -7,6 +8,7 @@ class MoedasPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tabela = MoedaRepository.tabela;
+    NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
 
     return Scaffold(
         appBar: AppBar(
@@ -30,7 +32,7 @@ class MoedasPage extends StatelessWidget {
                       color: Colors.black54),
                 ),
                 trailing: Text(
-                  tabela[moeda].preco.toStringAsFixed(2),
+                  real.format(tabela[moeda].preco),
                   style: const TextStyle(fontSize: 14),
                 ),
               );

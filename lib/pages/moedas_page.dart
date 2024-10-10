@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:teste_flutter/models/moeda_model.dart';
+import 'package:teste_flutter/pages/moeda_detalhes_page.dart';
 import 'package:teste_flutter/repositories/moeda_repository.dart';
 
 class MoedasPage extends StatefulWidget {
@@ -47,6 +48,11 @@ class _MoedasPageState extends State<MoedasPage> {
     }
   }
 
+  detalhesMoeda(MoedaModel moeda) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (_) => MoedaDetalhesPage(moeda: moeda)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,6 +96,7 @@ class _MoedasPageState extends State<MoedasPage> {
                 print('Clique longo'),
                 print(tabela[moeda].nome),
               },
+              onTap: () => detalhesMoeda(tabela[moeda]),
             );
           },
           padding: const EdgeInsets.all(16),

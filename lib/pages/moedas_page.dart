@@ -50,50 +50,65 @@ class _MoedasPageState extends State<MoedasPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: appBarDinamica(),
-        //appBar: AppBar(
-        // body: const Center(
-        //   child: Text('Body - Olá mundo!'),
-        // ),
-        //)
-        body: ListView.separated(
-            itemBuilder: (BuildContext context, int moeda) {
-              return ListTile(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+      appBar: appBarDinamica(),
+      //appBar: AppBar(
+      // body: const Center(
+      //   child: Text('Body - Olá mundo!'),
+      // ),
+      //)
+      body: ListView.separated(
+          itemBuilder: (BuildContext context, int moeda) {
+            return ListTile(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+              leading: (moedasSelecionadas.contains(tabela[moeda]))
+                  ? const CircleAvatar(child: Icon(Icons.check))
+                  : SizedBox(
+                      width: 35,
+                      child: Image.asset(tabela[moeda].icone),
+                    ),
+              title: Text(
+                tabela[moeda].nome,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
                 ),
-                leading: (moedasSelecionadas.contains(tabela[moeda]))
-                    ? const CircleAvatar(child: Icon(Icons.check))
-                    : SizedBox(
-                        width: 35,
-                        child: Image.asset(tabela[moeda].icone),
-                      ),
-                title: Text(
-                  tabela[moeda].nome,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                trailing: Text(
-                  real.format(tabela[moeda].preco),
-                  style: const TextStyle(fontSize: 14),
-                ),
-                selected: moedasSelecionadas.contains(tabela[moeda]),
-                selectedTileColor: Colors.indigo[50],
-                onLongPress: () => {
-                  setState(() {
-                    (moedasSelecionadas.contains(tabela[moeda]))
-                        ? moedasSelecionadas.remove(tabela[moeda])
-                        : moedasSelecionadas.add(tabela[moeda]);
-                  }),
-                  print('Clique longo'),
-                  print(tabela[moeda].nome),
-                },
-              );
-            },
-            padding: const EdgeInsets.all(16),
-            separatorBuilder: (_, __) => const Divider(),
-            itemCount: tabela.length));
+              ),
+              trailing: Text(
+                real.format(tabela[moeda].preco),
+                style: const TextStyle(fontSize: 14),
+              ),
+              selected: moedasSelecionadas.contains(tabela[moeda]),
+              selectedTileColor: Colors.indigo[50],
+              onLongPress: () => {
+                setState(() {
+                  (moedasSelecionadas.contains(tabela[moeda]))
+                      ? moedasSelecionadas.remove(tabela[moeda])
+                      : moedasSelecionadas.add(tabela[moeda]);
+                }),
+                print('Clique longo'),
+                print(tabela[moeda].nome),
+              },
+            );
+          },
+          padding: const EdgeInsets.all(16),
+          separatorBuilder: (_, __) => const Divider(),
+          itemCount: tabela.length),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: moedasSelecionadas.isEmpty
+          ? null
+          : FloatingActionButton.extended(
+              onPressed: () {},
+              icon: const Icon(Icons.favorite),
+              label: const Text(
+                'FAVORITAR',
+                style: TextStyle(
+                    letterSpacing: 0,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500),
+              ),
+            ),
+    );
   }
 }

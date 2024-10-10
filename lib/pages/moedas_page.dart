@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:teste_flutter/models/moeda_model.dart';
@@ -17,15 +15,47 @@ class _MoedasPageState extends State<MoedasPage> {
   NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
   List<MoedaModel> moedasSelecionadas = [];
 
+  appBarDinamica() {
+    if (moedasSelecionadas.isEmpty) {
+      return AppBar(
+        title: const Text('Cripto Moedas'),
+      );
+    } else {
+      return AppBar(
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              setState(() {
+                moedasSelecionadas = [];
+              });
+            }),
+        title: Row(
+          mainAxisAlignment:
+              MainAxisAlignment.end, // Alinhando o texto à direita
+          children: [
+            Text('${moedasSelecionadas.length} moedas selecionadas'),
+          ],
+        ),
+        titleTextStyle: const TextStyle(
+          color: Colors.black87,
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
+        backgroundColor: Colors.blueGrey[50],
+        iconTheme: const IconThemeData(color: Colors.black87),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Titulo - Cripto Moedas'),
-        ),
+        appBar: appBarDinamica(),
+        //appBar: AppBar(
         // body: const Center(
         //   child: Text('Body - Olá mundo!'),
         // ),
+        //)
         body: ListView.separated(
             itemBuilder: (BuildContext context, int moeda) {
               return ListTile(
